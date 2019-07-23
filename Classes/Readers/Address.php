@@ -1,29 +1,32 @@
 <?php
 
 
-namespace Readers\Classes;
+namespace Classes\Readers;
 
 
 class Address
 {
     private $street;
     private $doorNumber;
-    private $apartmentFloor;
     private $postalCode;
+    private $apartment;
+    private $apartmentFloor;
 
     /**
      * Address constructor.
-     * @param $street
-     * @param $doorNumber
+     * @param string $street
+     * @param int $doorNumber
+     * @param string $postalCode
+     * @param null $apartment
      * @param $apartmentFloor
-     * @param $postalCode
      */
-    public function __construct(string $street, int $doorNumber, string $postalCode, $apartmentFloor = null)
+    public function __construct(string $street, int $doorNumber, string $postalCode, $apartment = null, $apartmentFloor = null)
     {
         $this->street = $street;
         $this->doorNumber = $doorNumber;
-        $this->apartmentFloor = $apartmentFloor;
         $this->postalCode = $postalCode;
+        $this->apartment = $apartment;
+        $this->apartmentFloor = $apartmentFloor;
     }
 
     /**

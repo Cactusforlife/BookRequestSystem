@@ -1,10 +1,13 @@
 <?php
 
 
-namespace Readers\Classes;
+namespace Classes\Readers;
 
 
-class Professor extends Person
+use Classes\BookStore\BookRequest;
+use Exception;
+
+class Professor extends Reader
 {
     private $workerNumber;
     private $subjects;
@@ -58,4 +61,29 @@ class Professor extends Person
     }
 
 
+    /**
+     * @param BookRequest $bookRequest
+     * @return mixed
+     * @throws Exception
+     */
+    public function addBook(BookRequest $bookRequest)
+    {
+        if(sizeof($this->getBooksListRequested()) < 10){
+            throw new Exception('you can not request more than 10 books');
+        }
+    }
+
+    public function equalsTo($reader): bool
+    {
+        if(!$reader instanceof Professor) {
+            return false;
+        }
+
+        if($this->workerNumber == $reader->getWorkerNumber()){
+            return false;
+        }
+
+        return true;
+
+    }
 }

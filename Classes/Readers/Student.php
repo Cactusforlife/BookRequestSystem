@@ -1,10 +1,13 @@
 <?php
 
 
-namespace Readers\Classes;
+namespace Classes\Readers;
 
 
-class Student extends Person
+use Classes\BookStore\BookRequest;
+use Exception;
+
+class Student extends Reader
 {
     private $studentNumber;
     private $course;
@@ -77,4 +80,29 @@ class Student extends Person
     }
 
 
+    /**
+     * @param BookRequest $bookRequest
+     * @return mixed
+     * @throws \Exception
+     */
+    public function addBook(BookRequest $bookRequest)
+    {
+        if(sizeof($this->getBooksListRequested()) < 5){
+            throw new Exception('you can not request more than 5 books');
+        }
+
+    }
+
+    public function equalsTo($reader) : bool
+    {
+        if(!$reader instanceof Student) {
+            return false;
+        }
+
+        if($this->studentNumber == $reader->getStudentNumber()){
+            return false;
+        }
+
+        return true;
+    }
 }

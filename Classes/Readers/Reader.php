@@ -1,22 +1,25 @@
 <?php
 
-namespace Readers\Classes;
+namespace Classes\Readers;
 
-class Person
+use Classes\BookStore\BookRequest;
+use Classes\Comparable;
+use Exception;
+
+abstract class Reader implements Comparable
 {
     private $readerNumber;
     private $name;
     private $email;
     private $phoneNumber;
-    private $booksRequested;
+    private $booksListRequested;
 
     /**
-     * Person constructor.
-     * @param $readerNumber
-     * @param $name
-     * @param $email
-     * @param $phoneNumber
-     * @param $bookList
+     * Reader constructor.
+     * @param int $readerNumber
+     * @param int $name
+     * @param string $email
+     * @param array $phoneNumber
      */
     public function __construct(int $readerNumber, int $name, string $email, array $phoneNumber)
     {
@@ -24,7 +27,7 @@ class Person
         $this->name = $name;
         $this->email = $email;
         $this->phoneNumber = $phoneNumber;
-        $this->booksRequested = [];
+        $this->booksListRequested = [];
     }
 
     /**
@@ -94,18 +97,36 @@ class Person
     /**
      * @return mixed
      */
-    public function getBooksRequested()
+    public function getBooksListRequested()
     {
-        return $this->booksRequested;
+        return $this->booksListRequested;
     }
 
     /**
-     * @param mixed $booksRequested
+     * @param mixed $booksListRequested
      */
-    public function setBooksRequested($booksRequested)
+    public function setBooksListRequested($booksListRequested)
     {
-        $this->booksRequested = $booksRequested;
+        $this->booksListRequested = $booksListRequested;
     }
 
+    /**
+     * @param BookRequest $bookRequest
+     * @return mixed
+     */
+    abstract public function addBook(BookRequest $bookRequest);
+
+    public function equalsTo($reader): bool
+    {
+        if(!$reader instanceof Reader) {
+            return false;
+        }
+
+        if($this->getEmail() == $reader->getEmail()){
+            return false;
+        }
+
+        return true;
+    }
 
 }

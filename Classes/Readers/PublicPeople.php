@@ -1,10 +1,13 @@
 <?php
 
 
-namespace Readers\Classes;
+namespace Classes\Readers;
 
 
-class PublicPeople extends Person
+use Classes\BookStore\BookRequest;
+use Exception;
+
+class PublicPeople extends Reader
 {
 
     private $address;
@@ -40,5 +43,28 @@ class PublicPeople extends Person
     }
 
 
+    /**
+     * @param BookRequest $bookRequest
+     * @return mixed
+     * @throws Exception
+     */
+    public function addBook(BookRequest $bookRequest)
+    {
+        if(sizeof($this->getBooksListRequested()) < 2){
+            throw new Exception('you can not request more than 2 books');
+        }
+    }
 
+    public function equalsTo($reader) :bool
+    {
+        if(!$reader instanceof PublicPeople) {
+            return false;
+        }
+
+        if($this->getEmail() == $reader->getEmail()){
+            return false;
+        }
+
+        return true;
+    }
 }
