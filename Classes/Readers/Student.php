@@ -78,8 +78,28 @@ class Student extends Reader
     {
         $this->workerStatus = $workerStatus;
     }
+  
+    /*
+    *   validações $reader,$book,$requestDate,$status,$closeDate;
+    *
+    */
+    
+    private function validadelistofBooks()
+    {
+        if(sizeof($this->getBooksListRequested()) < 5)
+        {
+            throw new Exception('you can not request more than 5 books');
+        }
+    }
 
-
+    /* 
+    *   validade total
+    */
+    private function validadebookRequest(BookRequest $bookRequest)
+    {
+        $this->validadelistofBooks($bookRequest);
+    }    
+    
     /**
      * @param BookRequest $bookRequest
      * @return mixed
@@ -87,12 +107,10 @@ class Student extends Reader
      */
     public function addBook(BookRequest $bookRequest)
     {
-        if(sizeof($this->getBooksListRequested()) < 5){
-            throw new Exception('you can not request more than 5 books');
-        }
-
+       $this->validatebookRequest($bookRequest);
     }
-
+    
+    
     public function equalsTo($reader) : bool
     {
         if(!$reader instanceof Student) {

@@ -8,11 +8,7 @@ criar metedo abstracto validate bookRequest na classe Reader
 - podes criar metedos privados que façam as validações e depois chamalos neste métedo ( fazer isso nas classes a extender a classe Reader)
 
 
-mudar métedo addBookRequest, mudar o nome para addBook
-
-neste métedo chama o métedo anterior referido para validar e so depois é que se retornar verdadeiro adiciona para a lista de livros
+mudar métedo addBookRequest, mudar o nome para addBook -> neste métedo chama o métedo anterior referido para validar e so depois é que se retornar verdadeiro adiciona para a lista de livros
 
 
-class system
-
-métedo requestBook por fazer
+class system->métedo requestBook por fazer

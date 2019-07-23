@@ -115,6 +115,8 @@ abstract class Reader implements Comparable
      * @return mixed
      */
     abstract public function addBook(BookRequest $bookRequest);
+    
+    abstract public function validatebookRequest(BookRequest $bookRequest);
 
     public function equalsTo($reader): bool
     {
