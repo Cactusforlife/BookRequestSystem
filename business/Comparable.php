@@ -1,6 +1,6 @@
 <?php
 
-namespace Classes;
+namespace App\business;
 
 
 interface Comparable

@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Classes\Readers;
+namespace App\business\Readers;
 
 
-use Classes\BookStore\BookRequest;
+use App\business\bookstore\BookRequest;
 use Exception;
 
 class Student extends Reader
@@ -19,11 +19,11 @@ class Student extends Reader
      * @param string $course
      * @param bool $workerStatus
      * @param int $readerNumber
-     * @param int $name
+     * @param string $name
      * @param string $email
-     * @param array $phoneNumber
+     * @param string $phoneNumber
      */
-    public function __construct(int $studentNumber, string $course, bool $workerStatus, int $readerNumber, int $name, string $email, array $phoneNumber)
+    public function __construct(int $studentNumber, string $course, bool $workerStatus, int $readerNumber, string $name, string $email, string $phoneNumber)
     {
         $this->studentNumber = $studentNumber;
         $this->course = $course;
@@ -84,7 +84,7 @@ class Student extends Reader
     *
     */
     
-    private function validadelistofBooks()
+    private function validadeListOfBooks(BookRequest $bookRequest)
     {
         if(sizeof($this->getBooksListRequested()) < 5)
         {
@@ -92,13 +92,11 @@ class Student extends Reader
         }
     }
 
-    /* 
-    *   validade total
-    */
-    private function validadebookRequest(BookRequest $bookRequest)
+    public function validateBookRequest(BookRequest $bookRequest)
     {
-        $this->validadelistofBooks($bookRequest);
-    }    
+
+    }
+
     
     /**
      * @param BookRequest $bookRequest
@@ -107,7 +105,7 @@ class Student extends Reader
      */
     public function addBook(BookRequest $bookRequest)
     {
-       $this->validatebookRequest($bookRequest);
+       $this->validateBookRequest($bookRequest);
     }
     
     
@@ -123,4 +121,6 @@ class Student extends Reader
 
         return true;
     }
+
+
 }

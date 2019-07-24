@@ -1,9 +1,9 @@
 <?php
 
 
-namespace Classes\BookStore;
+namespace App\business\bookstore;
 
-use Classes\Readers\Reader;
+use App\business\readers\Reader;
 
 class BookRequest
 {

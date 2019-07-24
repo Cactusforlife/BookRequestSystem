@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Classes\BookStore;
+namespace App\business\bookstore;
 
 
 use Exception;

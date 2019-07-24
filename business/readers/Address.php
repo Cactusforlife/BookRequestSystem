@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Classes\Readers;
+namespace App\business\readers;
 
 
 class Address

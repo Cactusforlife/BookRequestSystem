@@ -12,3 +12,5 @@ mudar métedo addBookRequest, mudar o nome para addBook -> neste métedo chama o
 
 
 class system->métedo requestBook por fazer
+
+foi feito a interface comparable porque todas classes tem um metedo de comparação em que tem fatores diferentes um dos outros

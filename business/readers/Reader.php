@@ -1,9 +1,9 @@
 <?php
 
-namespace Classes\Readers;
+namespace App\business\readers;
 
-use Classes\BookStore\BookRequest;
-use Classes\Comparable;
+use App\business\bookstore\BookRequest;
+use App\business\Comparable;
 use Exception;
 
 abstract class Reader implements Comparable
@@ -17,11 +17,11 @@ abstract class Reader implements Comparable
     /**
      * Reader constructor.
      * @param int $readerNumber
-     * @param int $name
+     * @param string $name
      * @param string $email
-     * @param array $phoneNumber
+     * @param string $phoneNumber
      */
-    public function __construct(int $readerNumber, int $name, string $email, array $phoneNumber)
+    public function __construct(int $readerNumber, string $name, string $email, string $phoneNumber)
     {
         $this->readerNumber = $readerNumber;
         $this->name = $name;
@@ -115,8 +115,8 @@ abstract class Reader implements Comparable
      * @return mixed
      */
     abstract public function addBook(BookRequest $bookRequest);
-    
-    abstract public function validatebookRequest(BookRequest $bookRequest);
+
+    abstract public function validateBookRequest(BookRequest $bookRequest);
 
     public function equalsTo($reader): bool
     {
@@ -124,7 +124,7 @@ abstract class Reader implements Comparable
             return false;
         }
 
-        if($this->getEmail() == $reader->getEmail()){
+        if($this->getReaderNumber() == $reader->getReaderNumber()){
             return false;
         }
 

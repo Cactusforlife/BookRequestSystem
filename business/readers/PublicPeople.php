@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Classes\Readers;
+namespace App\business\readers;
 
 
-use Classes\BookStore\BookRequest;
+use App\business\bookstore\BookRequest;
 use Exception;
 
 class PublicPeople extends Reader
@@ -15,12 +15,12 @@ class PublicPeople extends Reader
     /**
      * PublicPeople constructor.
      * @param int $readerNumber
-     * @param int $name
+     * @param string $name
      * @param string $email
-     * @param array $phoneNumber
+     * @param string $phoneNumber
      * @param Address $address
      */
-    public function __construct(int $readerNumber, int $name, string $email, array $phoneNumber, Address $address)
+    public function __construct(int $readerNumber, string $name, string $email, string $phoneNumber, Address $address)
     {
         parent::__construct($readerNumber, $name, $email, $phoneNumber);
         $this->address = $address;
@@ -43,6 +43,13 @@ class PublicPeople extends Reader
     }
 
 
+
+    public function validateBookRequest(BookRequest $bookRequest)
+    {
+        // TODO: Implement validateBookRequest() method.
+    }
+
+
     /**
      * @param BookRequest $bookRequest
      * @return mixed
@@ -50,9 +57,7 @@ class PublicPeople extends Reader
      */
     public function addBook(BookRequest $bookRequest)
     {
-        if(sizeof($this->getBooksListRequested()) < 2){
-            throw new Exception('you can not request more than 2 books');
-        }
+
     }
 
     public function equalsTo($reader) :bool

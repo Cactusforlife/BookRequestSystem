@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Classes\Readers;
+namespace App\business\readers;
 
 
-use Classes\BookStore\BookRequest;
+use App\business\bookstore\BookRequest;
 use Exception;
 
 class Professor extends Reader
@@ -16,12 +16,12 @@ class Professor extends Reader
     /**
      * Professor constructor.
      * @param int $workerNumber
-     * @param int $readerNumber
+     * @param string $readerNumber
      * @param int $name
      * @param string $email
-     * @param array $phoneNumber
+     * @param string $phoneNumber
      */
-    public function __construct(int $workerNumber, int $readerNumber, int $name, string $email, array $phoneNumber)
+    public function __construct(int $workerNumber, string $readerNumber, string $name, string $email, string $phoneNumber)
     {
         $this->workerNumber = $workerNumber;
         $this->subjects = [];
@@ -60,6 +60,19 @@ class Professor extends Reader
         $this->subjects = $subjects;
     }
 
+    private function validateListOfBooks(BookRequest $bookRequest): bool{
+
+        if(sizeof($bookRequest->getReader()->getBooksListRequested()) < 10){
+            return true;
+        }
+        return false;
+    }
+
+    public function validateBookRequest(BookRequest $bookRequest)
+    {
+        $this->validateListOfBooks($bookRequest);
+    }
+
 
     /**
      * @param BookRequest $bookRequest
@@ -68,9 +81,7 @@ class Professor extends Reader
      */
     public function addBook(BookRequest $bookRequest)
     {
-        if(sizeof($this->getBooksListRequested()) < 10){
-            throw new Exception('you can not request more than 10 books');
-        }
+        $this->validateBookRequest($bookRequest);
     }
 
     public function equalsTo($reader): bool
@@ -86,4 +97,6 @@ class Professor extends Reader
         return true;
 
     }
+
+
 }
