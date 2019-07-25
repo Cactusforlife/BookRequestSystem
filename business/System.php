@@ -59,18 +59,16 @@ class System
             if($libraryBook->equalsTo($book)){
                 array_push($this->books, $book);
                 return 'Book sucessfully added';
-            } else{
-
-                throw new Exception('there is already a book with that ISBN');
             }
-
-
         }
 
     }
 
 
-
+    /**
+     * @param Reader $reader
+     * @throws Exception
+     */
     public function addReader(Reader $reader)
     {
 
@@ -96,56 +94,6 @@ class System
                 $reader->validateBookRequest($bookRequest);
             }
         }
-
-    }
-
-    private function validateIfThereIsAtleastOneProfessor(Professor $professor){
-
-        $actualSize = sizeof($this->readers);
-
-        $newSize = [];
-
-        foreach($this->readers as $reader){
-
-            if(!$reader instanceof Professor){
-                array_push($newSize, $reader);
-            }
-
-        }
-
-        if(sizeof($newSize) == $actualSize){
-            array_push($this->readers, $professor);
-            return 'it was added';
-        }
-        else {
-            return true;
-        }
-
-
-    }
-
-    private function validateIfThereIsAtleastOneStudent(Student $student){
-
-        $actualSize = sizeof($this->readers);
-
-        $newSize = [];
-
-        foreach($this->readers as $reader){
-
-            if(!$reader instanceof Student){
-                array_push($newSize, $reader);
-            }
-
-        }
-
-        if(sizeof($newSize) == $actualSize){
-            array_push($this->readers, $student);
-            return 'it was added';
-        }
-        else {
-            return true;
-        }
-
 
     }
 

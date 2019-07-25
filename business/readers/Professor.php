@@ -70,9 +70,11 @@ class Professor extends Reader
 
     public function validateBookRequest(BookRequest $bookRequest)
     {
-        $this->validateListOfBooks($bookRequest);
-    }
+        if($this->validateListOfBooks($bookRequest)){
+            return true;
+        }
 
+    }
 
     /**
      * @param BookRequest $bookRequest
@@ -82,9 +84,10 @@ class Professor extends Reader
     public function addBook(BookRequest $bookRequest)
     {
         $this->validateBookRequest($bookRequest);
+        array_push($this->getBooksListRequested(), $bookRequest->getBook());
     }
 
-    public function equalsTo(Reader $other): bool
+    public function equalsTo($other): bool
     {
 
         if( $other instanceof Professor){

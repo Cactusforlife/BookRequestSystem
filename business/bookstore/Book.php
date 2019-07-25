@@ -120,8 +120,9 @@ class Book implements Comparable
      */
     public function equalsTo($other): bool
     {
-        if($this->getISBN() == $other->getISBN()){
-            return false;
+
+        if(!$other instanceof Book || $this->getISBN() == $other->getISBN()){
+            throw new Exception('there is already a book with that ISBN');
         }
         return true;
     }

@@ -123,7 +123,7 @@ abstract class Reader implements Comparable
      * @return bool
      * @throws Exception
      */
-    public function equalsTo(Reader $other): bool
+    public function equalsTo($other): bool
     {
 
         if($this->getReaderNumber() == $other->getReaderNumber() || $this->getEmail() == $other->getEmail()){

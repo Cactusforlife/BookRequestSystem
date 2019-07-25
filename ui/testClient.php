@@ -21,5 +21,6 @@ $system->addReader(new Student(1,'fuck',true,5,'MIguye','tsa','1232131'));
 
 
 $system->addBook(new Book(12345,'shit','shit','shit','shit'));
+$system->addBook(new Book(123452,'shit','shit','shit','shit'));
 
-print_r($system->getReaders());
+print_r($system->getBooks());

@@ -42,13 +42,22 @@ class PublicPeople extends Reader
         $this->address = $address;
     }
 
+    private function validateListOfBooks(BookRequest $bookRequest): bool{
+
+        if(sizeof($bookRequest->getReader()->getBooksListRequested()) < 2){
+            return true;
+        }
+        return false;
+    }
 
 
     public function validateBookRequest(BookRequest $bookRequest)
     {
-        // TODO: Implement validateBookRequest() method.
-    }
+        if($this->validateListOfBooks($bookRequest)){
+            return true;
+        }
 
+    }
 
     /**
      * @param BookRequest $bookRequest
@@ -57,7 +66,8 @@ class PublicPeople extends Reader
      */
     public function addBook(BookRequest $bookRequest)
     {
-
+        $this->validateBookRequest($bookRequest);
+        array_push($this->getBooksListRequested(), $bookRequest->getBook());
     }
 
     public function equalsTo($other) :bool
