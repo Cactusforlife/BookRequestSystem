@@ -4,9 +4,10 @@
 namespace App\business\bookstore;
 
 
+use App\business\Comparable;
 use Exception;
 
-class Book
+class Book implements Comparable
 {
     private $ISBN;
     private $title;
@@ -111,22 +112,17 @@ class Book
         $this->genre = $genre;
     }
 
+
     /**
-     * @param Book $book
-     * @return Book
+     * @param $other
+     * @return bool
      * @throws Exception
      */
-    public function equalsTo(Book $book)
+    public function equalsTo($other): bool
     {
-        if($this->getISBN() == $book->getISBN()){
-            throw new Exception('this book already exists');
+        if($this->getISBN() == $other->getISBN()){
+            return false;
         }
-        return $book;
+        return true;
     }
-
-
-
-
-
-
 }

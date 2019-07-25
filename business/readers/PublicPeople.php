@@ -60,14 +60,11 @@ class PublicPeople extends Reader
 
     }
 
-    public function equalsTo($reader) :bool
+    public function equalsTo($other) :bool
     {
-        if(!$reader instanceof PublicPeople) {
-            return false;
-        }
 
-        if($this->getEmail() == $reader->getEmail()){
-            return false;
+        if($this->getReaderNumber() == $other->getReaderNumber() || $this->getEmail() == $other->getEmail()){
+            throw new Exception('its the same');
         }
 
         return true;

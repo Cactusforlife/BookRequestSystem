@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\business\Readers;
+namespace App\business\readers;
 
 
 use App\business\bookstore\BookRequest;
@@ -78,19 +78,6 @@ class Student extends Reader
     {
         $this->workerStatus = $workerStatus;
     }
-  
-    /*
-    *   validações $reader,$book,$requestDate,$status,$closeDate;
-    *
-    */
-    
-    private function validadeListOfBooks(BookRequest $bookRequest)
-    {
-        if(sizeof($this->getBooksListRequested()) < 5)
-        {
-            throw new Exception('you can not request more than 5 books');
-        }
-    }
 
     public function validateBookRequest(BookRequest $bookRequest)
     {
@@ -109,14 +96,20 @@ class Student extends Reader
     }
     
     
-    public function equalsTo($reader) : bool
+    public function equalsTo($other) : bool
     {
-        if(!$reader instanceof Student) {
-            return false;
-        }
 
-        if($this->studentNumber == $reader->getStudentNumber()){
-            return false;
+        if( $other instanceof Student){
+
+            if( $this->getReaderNumber() == $other->getReaderNumber() || $this->studentNumber == $other->getStudentNumber() || $this->getEmail() == $other->getEmail()) {
+                throw new Exception('its the same');
+            }
+        }
+        else {
+
+            if($this->getReaderNumber() == $other->getReaderNumber() || $this->getEmail() == $other->getEmail()){
+                throw new Exception('its the same');
+            }
         }
 
         return true;

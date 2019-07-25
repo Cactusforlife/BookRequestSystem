@@ -16,12 +16,12 @@ class Professor extends Reader
     /**
      * Professor constructor.
      * @param int $workerNumber
-     * @param string $readerNumber
-     * @param int $name
+     * @param int $readerNumber
+     * @param string $name
      * @param string $email
      * @param string $phoneNumber
      */
-    public function __construct(int $workerNumber, string $readerNumber, string $name, string $email, string $phoneNumber)
+    public function __construct(int $workerNumber, int $readerNumber, string $name, string $email, string $phoneNumber)
     {
         $this->workerNumber = $workerNumber;
         $this->subjects = [];
@@ -84,14 +84,21 @@ class Professor extends Reader
         $this->validateBookRequest($bookRequest);
     }
 
-    public function equalsTo($reader): bool
+    public function equalsTo(Reader $other): bool
     {
-        if(!$reader instanceof Professor) {
-            return false;
-        }
 
-        if($this->workerNumber == $reader->getWorkerNumber()){
-            return false;
+        if( $other instanceof Professor){
+
+            if($this->getReaderNumber() == $other->getReaderNumber() || $this->workerNumber == $other->getWorkerNumber() || $this->getEmail() == $other->getEmail()){
+                throw new Exception('its the same');
+            }
+        }
+        else{
+
+            if($this->getReaderNumber() == $other->getReaderNumber() || $this->getEmail() == $other->getEmail()){
+                throw new Exception('its the same');
+            }
+
         }
 
         return true;

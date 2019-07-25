@@ -118,14 +118,16 @@ abstract class Reader implements Comparable
 
     abstract public function validateBookRequest(BookRequest $bookRequest);
 
-    public function equalsTo($reader): bool
+    /**
+     * @param Reader $other
+     * @return bool
+     * @throws Exception
+     */
+    public function equalsTo(Reader $other): bool
     {
-        if(!$reader instanceof Reader) {
-            return false;
-        }
 
-        if($this->getReaderNumber() == $reader->getReaderNumber()){
-            return false;
+        if($this->getReaderNumber() == $other->getReaderNumber() || $this->getEmail() == $other->getEmail()){
+            throw new Exception('its the same');
         }
 
         return true;

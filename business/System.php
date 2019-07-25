@@ -13,7 +13,7 @@ use Exception;
 
 class System
 {
-    public static $readerNumber;
+    public static $readerNumber = 1;
     private $readers;
     private $books;
 
@@ -42,6 +42,11 @@ class System
         return $this->books;
     }
 
+    /**
+     * @param Book $book
+     * @return string
+     * @throws Exception
+     */
     public function addBook(Book $book)
     {
         if($this->books == null){
@@ -50,11 +55,17 @@ class System
         }
 
         foreach ($this->books as $libraryBook){
-            $libraryBook->equalsTo($book);
-            array_push($this->books, $book);
-        }
 
-        return 'Book sucessfully added';
+            if($libraryBook->equalsTo($book)){
+                array_push($this->books, $book);
+                return 'Book sucessfully added';
+            } else{
+
+                throw new Exception('there is already a book with that ISBN');
+            }
+
+
+        }
 
     }
 
@@ -88,6 +99,61 @@ class System
 
     }
 
+    private function validateIfThereIsAtleastOneProfessor(Professor $professor){
+
+        $actualSize = sizeof($this->readers);
+
+        $newSize = [];
+
+        foreach($this->readers as $reader){
+
+            if(!$reader instanceof Professor){
+                array_push($newSize, $reader);
+            }
+
+        }
+
+        if(sizeof($newSize) == $actualSize){
+            array_push($this->readers, $professor);
+            return 'it was added';
+        }
+        else {
+            return true;
+        }
+
+
+    }
+
+    private function validateIfThereIsAtleastOneStudent(Student $student){
+
+        $actualSize = sizeof($this->readers);
+
+        $newSize = [];
+
+        foreach($this->readers as $reader){
+
+            if(!$reader instanceof Student){
+                array_push($newSize, $reader);
+            }
+
+        }
+
+        if(sizeof($newSize) == $actualSize){
+            array_push($this->readers, $student);
+            return 'it was added';
+        }
+        else {
+            return true;
+        }
+
+
+    }
+
+    /**
+     * @param Professor $professor
+     * @return Exception|string
+     * @throws Exception
+     */
     private function addProfessor(Professor $professor)
     {
         if($this->getReaders() == null){
@@ -97,38 +163,48 @@ class System
         }
 
         foreach($this->readers as $reader){
+            var_dump('test');
             if($professor->equalsTo($reader)){
-
                 $professor->systemNumber = self::$readerNumber++;
                 array_push($this->readers, $professor);
-
-            } else {
-                return new Exception('this Reader is already inserted');
+                return 'added successfully';
             }
         }
 
-        return 'added successfully';
     }
 
+    /**
+     * @param Student $student
+     * @return string
+     * @throws Exception
+     */
     private function addStudent(Student $student)
     {
+
         if($this->getReaders() == null){
             $student->systemNumber = self::$readerNumber++;
             array_push($this->readers, $student);
+            return 'added successfully';
         }
 
-        foreach($this->readers as $reader){
-            if($student->equalsTo($reader)){
 
+        foreach ($this->readers as $reader) {
+
+            if ($student->equalsTo($reader)) {
                 $student->systemNumber = self::$readerNumber++;
                 array_push($this->readers, $student);
-            }else{
-                return new Exception('this Reader is already inserted');
+                return 'added successfully';
+
             }
         }
-        return 'added successfully';
+
     }
 
+    /**
+     * @param PublicPeople $publicPeople
+     * @return string
+     * @throws Exception
+     */
     private function addPublicPeople(PublicPeople $publicPeople)
     {
         if($this->getReaders() == null){
@@ -141,8 +217,6 @@ class System
 
                 $publicPeople->systemNumber = self::$readerNumber++;
                 array_push($this->readers, $publicPeople);
-            } else{
-                return new Exception('this Reader is already inserted');
             }
         }
         return 'added successfully';
